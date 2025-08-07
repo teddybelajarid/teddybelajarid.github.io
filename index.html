@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snack Shop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+    }
+
+    header {
+      background-color: #ff6f61;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 1rem;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      width: 250px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 1rem;
+    }
+
+    .card-body h4 {
+      margin: 0 0 0.5rem;
+    }
+
+    .card-body button {
+      background-color: #ff6f61;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .cart-section {
+      background: white;
+      padding: 1rem;
+      margin: 1rem;
+      border-radius: 10px;
+    }
+
+    .cart-section h3 {
+      margin-top: 0;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.5rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Snack Shop</h1>
+  </header>
+
+  <div class="container" id="product-list"></div>
+
+  <div class="cart-section">
+    <h3>🛒 Your Cart</h3>
+    <div id="cart-items"></div>
+    <p><strong>Total: </strong><span id="total">Rp0</span></p>
+
+    <h4>Courier:</h4>
+    <select id="courier">
+      <option value="10000">JNE (Rp10.000)</option>
+      <option value="15000">SiCepat (Rp15.000)</option>
+      <option value="20000">GoSend (Rp20.000)</option>
+    </select>
+
+    <h4>Destination:</h4>
+    <input type="text" id="destination" placeholder="Enter your address" style="width: 100%; padding: 0.5rem;" />
+
+    <button onclick="checkout()" style="margin-top: 1rem; background: green; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 5px; cursor: pointer;">Pay Now</button>
+
+    <div id="payment-info" style="margin-top: 1rem;"></div>
+  </div>
+
+  <script>
+    const products = [
+      { id: 1, name: "Potato Chips", price: 12000, img: "https://via.placeholder.com/250x180?text=Potato+Chips" },
+      { id: 2, name: "Chocolate Bar", price: 15000, img: "https://via.placeholder.com/250x180?text=Chocolate+Bar" },
+      { id: 3, name: "Fruit Gummy", price: 10000, img: "https://via.placeholder.com/250x180?text=Fruit+Gummy" },
+      { id: 4, name: "Instant Noodles", price: 14000, img: "https://via.placeholder.com/250x180?text=Instant+Noodles" }
+    ];
+
+    const cart = [];
+
+    function displayProducts() {
+      const list = document.getElementById('product-list');
+      list.innerHTML = '';
+      products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${product.img}" alt="${product.name}" />
+          <div class="card-body">
+            <h4>${product.name}</h4>
+            <p>Rp${product.price.toLocaleString()}</p>
+            <button onclick="addToCart(${product.id})">Add to Cart</button>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    function addToCart(productId) {
+      const item = products.find(p => p.id === productId);
+      cart.push(item);
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartList = document.getElementById('cart-items');
+      cartList.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, index) => {
+        total += item.price;
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `${item.name} - Rp${item.price.toLocaleString()} <button onclick="removeItem(${index})">❌</button>`;
+        cartList.appendChild(div);
+      });
+      document.getElementById('total').innerText = `Rp${total.toLocaleString()}`;
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
+
+    function checkout() {
+      const destination = document.getElementById('destination').value;
+      const courier = parseInt(document.getElementById('courier').value);
+      let total = cart.reduce((sum, item) => sum + item.price, 0);
+      total += courier;
+
+      const paymentInfo = document.getElementById('payment-info');
+      if (!destination) {
+        paymentInfo.innerHTML = '<p style="color: red">Please enter your destination address.</p>';
+        return;
+      }
+
+      paymentInfo.innerHTML = `
+        <h4>Checkout Summary</h4>
+        <p>Total Items: ${cart.length}</p>
+        <p>Courier Cost: Rp${courier.toLocaleString()}</p>
+        <p><strong>Grand Total: Rp${total.toLocaleString()}</strong></p>
+        <p>Send payment to: <strong>OVO/Gopay/DANA 0812-xxxx-xxxx</strong></p>
+        <p>Delivery to: ${destination}</p>
+      `;
+    }
+
+    displayProducts();
+  </script>
+</body>
+
+</html>
