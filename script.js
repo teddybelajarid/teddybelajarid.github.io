@@ -1,7 +1,8 @@
 const websites = [
-  "https://openai.com",
-  "https://wikipedia.org",
-  "https://khanacademy.org"
+  "https://teddybelajarid.github.io/web1",
+  "https://teddybelajarid.github.io/web2",
+  "https://teddybelajarid.github.io/web3",
+  "https://teddybelajarid.github.io/web4"
 ];
 
 const carousel = document.getElementById("carousel");
