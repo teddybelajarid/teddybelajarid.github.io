@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EnB Electronics n Tools • Toko Elektronik Serba Ada</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="assets/img/logo.svg">
+  <meta name="description" content="EnB Electronics n Tools — toko elektronik serba ada milik Teddy Mulyana. Belanja paling kikinian dengan tema biru langit & copper.">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#">
+        <img src="assets/img/logo.svg" alt="EnB Logo" width="110" height="30">
+        <span class="brand-text">EnB Electronics n Tools</span>
+      </a>
+
+      <div class="header-actions">
+        <div class="search">
+          <input id="searchInput" type="search" placeholder="Cari elektronik & tools…">
+        </div>
+
+        <button id="soundToggle" class="btn ghost" aria-pressed="false" title="Sound On/Off">🔊</button>
+
+        <button id="cartBtn" class="btn cart" aria-label="Buka keranjang">
+          🛒<span id="cartCount" class="badge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Slider -->
+    <section class="hero">
+      <div class="slider" id="heroSlider" aria-roledescription="carousel">
+        <div class="slides">
+          <div class="slide current"><img src="assets/img/hero1.svg" alt="Belanja Elektronik Paling Kikinian"></div>
+          <div class="slide"><img src="assets/img/hero2.svg" alt="Semua Ada. Dari Gadget sampai Tools"></div>
+          <div class="slide"><img src="assets/img/hero3.svg" alt="Warna Biru Langit & Copper"></div>
+        </div>
+        <button class="nav prev" aria-label="Slide sebelumnya">‹</button>
+        <button class="nav next" aria-label="Slide berikutnya">›</button>
+        <div class="dots" aria-label="Navigasi slide"></div>
+      </div>
+    </section>
+
+    <!-- Announcement strip -->
+    <section class="strip">
+      <div class="container strip-inner">
+        <p><strong>Promo Pembukaan!</strong> Gratis ongkir s/d Rp20rb • Garansi resmi • COD tersedia</p>
+      </div>
+    </section>
+
+    <!-- Product Grid -->
+    <section class="container section">
+      <div class="section-head">
+        <h2>Produk Pilihan</h2>
+        <div class="filters">
+          <select id="sortSelect" aria-label="Urutkan">
+            <option value="featured">Pilihan</option>
+            <option value="price-asc">Harga: Termurah</option>
+            <option value="price-desc">Harga: Termahal</option>
+            <option value="rating-desc">Rating Tertinggi</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="productGrid" class="grid"></div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta container">
+      <h3>Butuh bantuan belanja, Teddy?</h3>
+      <p>Kami siap bantu pilihkan produk terbaik untuk EnB Electronics n Tools.</p>
+      <a href="#top" class="btn primary">Konsultasi Cepat</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> EnB Electronics n Tools — Pemilik: <strong>Teddy Mulyana</strong></p>
+      <nav class="footer-links">
+        <a href="checkout.html">Checkout</a>
+        <a href="#" id="openCartFooter">Keranjang</a>
+        <a href="#">Kebijakan</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Cart Panel -->
+  <aside id="cartPanel" class="cart-panel" aria-hidden="true" aria-labelledby="cartTitle" role="dialog">
+    <div class="cart-panel__header">
+      <h3 id="cartTitle">Keranjang</h3>
+      <button id="closeCart" class="btn ghost" aria-label="Tutup keranjang">✕</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-panel__footer">
+      <div class="total-row">
+        <span>Total</span>
+        <strong id="cartTotal">Rp0</strong>
+      </div>
+      <a href="checkout.html" class="btn primary full" id="checkoutBtn">Checkout</a>
+    </div>
+  </aside>
+
+  <audio id="bgAudio" src="assets/audio/bg.wav" preload="auto" loop></audio>
+
+  <script src="app.js"></script>
+</body>
+</html>
